@@ -31,10 +31,12 @@ function displayResults(meals) {
             <div class="modalcontainer hidden">
                 <div class="modal">
                     <h2>${meal.strMeal}</h2>
-                    <h3>Ingredients:</h3>
-                    <ul>
-                        ${getIngredientsList(meal)}
-                    </ul>
+                    <div class="ingr">
+                        <h3>Ingredients:</h3>
+                        <ol>
+                            ${getIngredientsList(meal)}
+                        </ol>
+                    </div>
                     <h3>Instructions:</h3>
                     <div class="instructions">${meal.strInstructions}</div>
                 </div>
