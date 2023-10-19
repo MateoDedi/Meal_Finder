@@ -12,6 +12,7 @@ async function fetchData() {
     const inputValue = input.value;
     const response = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${inputValue}`);
     const data = await response.json();
+    console.log(data.meals);
     displayResults(data.meals);
 }
 
@@ -22,15 +23,23 @@ function displayResults(meals) {
     }
 
     grid.innerHTML = meals.map((meal) => `
-    <div class="meal">
-        <div class="text">
-            <img src="${meal.strMealThumb}" alt="${meal.strMeal}">
-            <h4>${meal.strMeal}</h4>
+        <div class="meal">
+            <div class="text">
+                <img src="${meal.strMealThumb}" alt="${meal.strMeal}">
+                <h4>${meal.strMeal}</h4>
+            </div>
+            <div class="modalcontainer hidden">
+                <div class="modal">
+                    <h2>${meal.strMeal}</h2>
+                    <h3>Ingredients:</h3>
+                    <ul>
+                        ${getIngredientsList(meal)}
+                    </ul>
+                    <h3>Instructions:</h3>
+                    <div class="instructions">${meal.strInstructions}</div>
+                </div>
+            </div>
         </div>
-        <div class="modalcontainer hidden">
-            <!-- Modal content here -->
-        </div>
-    </div>
     `).join("");
 
     grid.querySelectorAll(".meal").forEach((meal) => {
@@ -39,6 +48,18 @@ function displayResults(meals) {
             modalContainer.classList.remove("hidden");
         });
     });
+}
+
+function getIngredientsList(meal) {
+    const ingredients = [];
+    for (let i = 1; i <= 20; i++) {
+        const ingredient = meal[`strIngredient${i}`];
+        if (ingredient) {
+            const measure = meal[`strMeasure${i}`];
+            ingredients.push(`${measure} ${ingredient}`);
+        }
+    }
+    return ingredients.map(item => `<li>${item}</li>`).join('');
 }
 
 grid.addEventListener("click", (event) => {
