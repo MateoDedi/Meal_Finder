@@ -23,19 +23,20 @@ function displayResults(meals) {
 
     grid.innerHTML = meals.map((meal) => `
     <div class="meal">
-      <div class="text">
-        <img src="${meal.strMealThumb}" alt="${meal.strMeal}">
-        <h4>${meal.strMeal}</h4>
-      </div>
-      <div class="modalcontainer hidden">
-        <!-- Modal content here -->
-      </div>
+        <div class="text">
+            <img src="${meal.strMealThumb}" alt="${meal.strMeal}">
+            <h4>${meal.strMeal}</h4>
+        </div>
+        <div class="modalcontainer hidden">
+            <!-- Modal content here -->
+        </div>
     </div>
-  `).join("");
+    `).join("");
 
     grid.querySelectorAll(".meal").forEach((meal) => {
         meal.addEventListener("click", () => {
-            meal.querySelector(".modalcontainer").classList.toggle("hidden");
+            const modalContainer = meal.querySelector(".modalcontainer");
+            modalContainer.classList.remove("hidden");
         });
     });
 }
