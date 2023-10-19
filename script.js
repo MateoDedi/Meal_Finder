@@ -26,7 +26,7 @@ function displayResults(meals) {
         <div class="meal">
             <div class="text">
                 <img src="${meal.strMealThumb}" alt="${meal.strMeal}">
-                <h4>${meal.strMeal}</h4>
+                <h1>${meal.strMeal}</h1>
             </div>
             <div class="modalcontainer hidden">
                 <div class="modal">
